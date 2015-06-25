@@ -38,7 +38,7 @@
           <div class="collapse navbar-collapse" id="js-navbar-collapse">
 
             <ul class="nav navbar-nav">
-              <li class="active"><a href="#/">Home</a></li>
+              <li class="active"><a href="#/">Casa</a></li>
               <li><a ng-href="#/about">About</a></li>
               <li><a ng-href="#/">Contact</a></li>
             </ul>
@@ -53,7 +53,6 @@
 
     <div class="footer">
       <div class="container">
-        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
       </div>
     </div>
 
@@ -73,6 +72,7 @@
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
@@ -86,7 +86,7 @@
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/about.js"></script>
+        <script src="scripts/directives/barchartdirective.js"></script>
         <!-- endbuild -->
 </body>
 </html>

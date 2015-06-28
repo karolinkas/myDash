@@ -10,6 +10,7 @@
  */
 angular
   .module('myDashApp', [
+    'd3',
     'ngAnimate',
     'ngCookies',
     'ngResource',

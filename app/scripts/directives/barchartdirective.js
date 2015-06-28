@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myDashApp').directive('barchart', ["d3Service", function(d3Service){
+angular.module('myDashApp').directive('barchart', ['d3Service', function(d3Service){
 	// Runs during compile
 	return {		
 		restrict: 'A', 
@@ -107,10 +107,10 @@ angular.module('myDashApp').directive('barchart', ["d3Service", function(d3Servi
 
 				var line = d3.svg.line()
 				    .interpolate('cardinal')
-				    .x(function (d, i) {
+				    .x(function (d) {
 				    return lineScaleX(d.x) + x.rangeBand() / 2;
 				})
-				    .y(function (d, i) {
+				    .y(function (d) {
 				    return lineScaleY(d.y0);
 				});
 
@@ -137,6 +137,13 @@ angular.module('myDashApp').directive('barchart', ["d3Service", function(d3Servi
 
 				stack(layers);
 
+				function makeGrid() {
+				    return d3.svg.axis()
+				        .scale(x)
+				        .orient('bottom')
+				        .ticks(5);
+				}
+
 				svg.append('g')
 				    .attr('class', 'grid')
 				    .attr('transform', 'translate(' + x.rangeBand() + ',' + height + ')')
@@ -153,7 +160,7 @@ angular.module('myDashApp').directive('barchart', ["d3Service", function(d3Servi
 				});
 
 
-				var bars = layer.selectAll('rect')
+				layer.selectAll('rect')
 				    .data(function (d) {
 				    return d;
 				})
@@ -166,7 +173,7 @@ angular.module('myDashApp').directive('barchart', ["d3Service", function(d3Servi
 				    .attr('y', function (d) {
 				    return y(d.y + d.y0);
 				})
-				    .attr('x', function (d, i) {
+				    .attr('x', function (d) {
 				    return x(d.x);
 				})
 				    .attr('height', function (d) {
@@ -176,7 +183,7 @@ angular.module('myDashApp').directive('barchart', ["d3Service", function(d3Servi
 
 
 
-				var groupOfLines = svg.selectAll('path')
+				svg.selectAll('path')
 				    .data(layers)
 				    .enter().append('path')
 				    .attr('class', 'lines')
@@ -193,12 +200,6 @@ angular.module('myDashApp').directive('barchart', ["d3Service", function(d3Servi
 				    .attr('opacity', 1);
 
 
-				function makeGrid() {
-				    return d3.svg.axis()
-				        .scale(x)
-				        .orient('bottom')
-				        .ticks(5);
-				}
 
 
 				svg.append('g')
@@ -270,7 +271,7 @@ angular.module('myDashApp').directive('barchart', ["d3Service", function(d3Servi
 				                .attr('y', function (d) {
 				                return y(d.y + d.y0);
 				            })
-				                .attr('x', function (d, i) {
+				                .attr('x', function (d) {
 				                return x(d.x);
 				            })
 				                .attr('height', function (d) {
@@ -308,7 +309,7 @@ angular.module('myDashApp').directive('barchart', ["d3Service", function(d3Servi
 				                .attr('opacity', 1);
 
 			           }
-			        }
+			        });
 			    });
 			});
 

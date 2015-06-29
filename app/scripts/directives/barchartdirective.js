@@ -8,7 +8,8 @@ angular.module('myDashApp').directive('barchart', ['d3Service', function(d3Servi
 
 			d3Service.d3().then(function(d3) {
 
-				element.append('<svg></svg><div id="slider"></div>');
+				element.append('<svg><div id="slider"></div></svg>');
+
 	//
 				var data = [{
 				    'time': 'monday',
@@ -61,12 +62,12 @@ angular.module('myDashApp').directive('barchart', ['d3Service', function(d3Servi
 
 				var margin = {
 				    top: 40,
-				    right: 10,
-				    bottom: 50,
-				    left: 50
+				    right: 50,
+				    bottom: 100,
+				    left: 60
 				},
-				width = 560 - margin.left - margin.right,
-				    height = 300 - margin.top - margin.bottom;
+						width = 560 - margin.left - margin.right,
+				    height = 330 - margin.top - margin.bottom;
 
 				var lineScaleX = d3.scale.ordinal()
 				    .domain(times)
@@ -93,7 +94,7 @@ angular.module('myDashApp').directive('barchart', ['d3Service', function(d3Servi
 
 				var colorFill = d3.scale.ordinal()
 				    .domain(intelligence)
-				    .range(['#fef2ce', '#fce4c3', '#b2cce2']);
+				    .range(['#81FE98', 'rgb(255, 53, 88)', '#157DE2']);
 
 				var xAxis = d3.svg.axis()
 				    .scale(x)
@@ -137,19 +138,19 @@ angular.module('myDashApp').directive('barchart', ['d3Service', function(d3Servi
 
 				stack(layers);
 
-				function makeGrid() {
-				    return d3.svg.axis()
-				        .scale(x)
-				        .orient('bottom')
-				        .ticks(5);
-				}
+				// function makeGrid() {
+				//     return d3.svg.axis()
+				//         .scale(x)
+				//         .orient('bottom')
+				//         .ticks(5);
+				// }
 
-				svg.append('g')
-				    .attr('class', 'grid')
-				    .attr('transform', 'translate(' + x.rangeBand() + ',' + height + ')')
-				    .call(makeGrid()
-				    .tickSize(-height, 0, 0)
-				    .tickFormat(''));
+				// svg.append('g')
+				//     .attr('class', 'grid')
+				//     .attr('transform', 'translate(' + x.rangeBand() + ',' + height + ')')
+				//     .call(makeGrid()
+				//     .tickSize(-height, 0, 0)
+				//     .tickFormat(''));
 
 				var layer = svg.selectAll('.layer')
 				    .data(layers)
@@ -188,6 +189,7 @@ angular.module('myDashApp').directive('barchart', ['d3Service', function(d3Servi
 				    .enter().append('path')
 				    .attr('class', 'lines')
 				    .attr('d', line)
+				    .style('stroke','white')
 				    .attr('opacity', 0)
 				    .transition()
 				    .delay(2000)
@@ -199,26 +201,28 @@ angular.module('myDashApp').directive('barchart', ['d3Service', function(d3Servi
 				    .attr('stroke-width', '2px')
 				    .attr('opacity', 1);
 
-
-
-
 				svg.append('g')
 				    .attr('class', 'x axis')
 				    .attr('transform', 'translate(0,' + height + ')')
 				    .call(xAxis);
 
+				svg.selectAll('.x.axis text')
+					.attr('transform', 'translate(0,40)');
+
 				//AXIS LABELS
 				svg.append('text')
-				    .attr('transform', 'translate(' + (width - 30) + ' ,' + (height + margin.bottom * 0.75) + ')')
+				    .attr('transform', 'translate(' + (width - 30) + ' ,' + (height + margin.bottom * 0.8) + ')')
 				    .style('text-anchor', 'middle')
+				    .style('font-size', 20)
 				    .text('Day of the week');
 
 				svg.append('text')
 				    .attr('transform', 'rotate(-90)')
 				    .attr('y', 0 - margin.left)
-				    .attr('x', 0 - (height / 2))
+				    .attr('x', 0 - (height / 7))
 				    .attr('dy', '1em')
 				    .style('text-anchor', 'middle')
+				    .style('font-size', 20)
 				    .text('Success');
 
 				svg.append('g')
@@ -250,6 +254,9 @@ angular.module('myDashApp').directive('barchart', ['d3Service', function(d3Servi
 				            //create new axis
 				            svg.transition().duration(750)
 				                .select('.x.axis').call(xAxis);
+
+				            svg.selectAll('.x.axis text')
+											.attr('transform', 'translate(0,40)');
 
 				            // add new Data
 				            var addNew = svg.selectAll('.layer')

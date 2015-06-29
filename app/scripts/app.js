@@ -16,7 +16,8 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'pubnub.angular.service'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -32,3 +33,4 @@ angular
         redirectTo: '/'
       });
   });
+
